@@ -8,6 +8,7 @@ import { WikipediaService } from './wikipedia.service';
 })
 export class AppComponent {
 
+  pages = [];
   //questo è uno shortcut. Vedi la forma completa annotata con ++
   constructor(private wikipedia: WikipediaService) {}
 
@@ -21,7 +22,9 @@ export class AppComponent {
   */
 
   onTerm(term: string){
-    const result = this.wikipedia.search(term);
-    console.log(result);
+    this.wikipedia.search(term).subscribe( (response : any) => 
+    {
+      this.pages = response.query.search; 
+    });
   }
 }
